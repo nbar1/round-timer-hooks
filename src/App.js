@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
+import Timer from './components/Timer';
+
 const AppWrapper = styled.div`
 	box-sizing: border-box;
 	height: 100%;
@@ -19,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 function App() {
 	return (
 		<AppWrapper>
-			app
+			<Timer />
 			<GlobalStyle />
 		</AppWrapper>
 	);
