@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 export const TimerContext = React.createContext({});
@@ -12,54 +12,44 @@ export const Provider = ({ children }) => {
 	const [prepTime, setPrepTime] = useState(60); // in seconds
 	const [roundEndWarning, setRoundEndWarning] = useState(10); // in seconds
 	const [isInProgress, setIsInProgress] = useState(false);
-	const [isPaused, setIsPaused] = useState(false);
+	const [isInRest, setIsInRest] = useState(false);
 
-	let tickInterval;
+	useEffect(() => {
+		if (!isInProgress) return;
 
-	/**
-	 * tick
-	 *
-	 * @returns {void}
-	 */
-	const tick = () => {
-		console.log(timeRemaining);
+		const tick = () => {
+			if (timeRemaining !== 0) {
+				// tick clock
+				setTimeRemaining(time => time - 1);
 
-		let newTimeRemaining = timeRemaining;
+				if (timeRemaining === roundEndWarning && isInRest === false) {
+					console.log('round end warning');
+				}
 
-		newTimeRemaining = newTimeRemaining === 0 ? roundTime : newTimeRemaining - 1;
+				return;
+			}
 
-		console.log('tick', newTimeRemaining);
+			if (isInRest === false) {
+				// set to rest mode
+				if (currentRound === 12) {
+					setIsInProgress(false);
+					return;
+				}
 
-		setTimeRemaining(newTimeRemaining);
+				setIsInRest(true);
+				setTimeRemaining(restTime);
+			} else {
+				// start next round
+				setIsInRest(false);
+				setCurrentRound(round => round + 1);
+				setTimeRemaining(roundTime);
+			}
+		};
 
-		/**
-		 * round movement cases
-		 */
-		if (newTimeRemaining === 0 && isInProgress === true && currentRound === rounds) {
-			// end session
-			setIsInProgress(false);
-			setTimeRemaining(0);
-			console.log('session ended');
-		} else if (newTimeRemaining === 0 && isInProgress === true && currentRound < rounds) {
-			// end current round
-			setIsInProgress(false);
-			setTimeRemaining(restTime);
-			console.log('round ended');
-		} else if (newTimeRemaining === 0 && isInProgress === false && currentRound < rounds) {
-			// continue to next round
-			setIsInProgress(true);
-			setTimeRemaining(roundTime);
-			console.log('round started');
-		}
+		const id = setInterval(tick, 1000);
 
-		/**
-		 * tick cases
-		 */
-		if (newTimeRemaining === roundEndWarning) {
-			// round end warning
-			console.log('round ending soon');
-		}
-	};
+		return () => clearInterval(id);
+	}, [timeRemaining, isInProgress, roundTime, isInRest, restTime, currentRound, roundEndWarning]);
 
 	/**
 	 * start
@@ -67,20 +57,7 @@ export const Provider = ({ children }) => {
 	 * @returns {void}
 	 */
 	const start = () => {
-		setTimeRemaining(roundTime);
 		setIsInProgress(true);
-
-		tickInterval = setInterval(tick, 1000);
-	};
-
-	/**
-	 * stop
-	 *
-	 * @returns {void}
-	 */
-	const stop = () => {
-		clearInterval(tickInterval);
-		reset();
 	};
 
 	/**
@@ -96,7 +73,6 @@ export const Provider = ({ children }) => {
 		setPrepTime(60);
 		setRoundEndWarning(10);
 		setIsInProgress(false);
-		setIsPaused(false);
 	};
 
 	// exports
@@ -104,7 +80,6 @@ export const Provider = ({ children }) => {
 		rounds,
 		setRounds,
 		currentRound,
-		setCurrentRound,
 		roundTime,
 		setRoundTime,
 		restTime,
@@ -114,12 +89,9 @@ export const Provider = ({ children }) => {
 		roundEndWarning,
 		setRoundEndWarning,
 		isInProgress,
-		setIsInProgress,
-		isPaused,
-		setIsPaused,
+		isInRest,
 		timeRemaining,
 		start,
-		stop,
 		reset,
 	};
 

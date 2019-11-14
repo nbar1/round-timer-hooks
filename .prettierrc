@@ -1,9 +1,8 @@
 {
-	"trailingComma": "es5",
-	"useTabs": true,
+	"printWidth": 120,
 	"tabWidth": 4,
 	"singleQuote": true,
-	"eslintIntegration": true,
-	"printWidth": 120,
-	"jsxBracketSameLine": true
+	"trailingComma": "es5",
+	"jsxBracketSameLine": true,
+	"useTabs": true
 }

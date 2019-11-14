@@ -13,6 +13,7 @@ const Timer = () => {
 			<div>round: {timerContext.currentRound}</div>
 			<div>time remaining: {timerContext.timeRemaining}</div>
 			<div>is in progress: {timerContext.isInProgress.toString()}</div>
+			<div>is in rest: {timerContext.isInRest.toString()}</div>
 		</div>
 	);
 };
