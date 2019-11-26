@@ -1,16 +1,41 @@
 import React, { useState, useEffect, useContext } from 'react';
+import styled from 'styled-components';
 import moment from 'moment';
 
-import { TimerContext } from '../TimerContext';
+import { TimerContext } from '../../TimerContext';
 
 import TimeRemaining from './TimeRemaining';
-import SoundDispenser from './SoundDispenser';
+import SoundDispenser from '../SoundDispenser';
+
+const Round = styled.div`
+	font-size: 36px;
+	margin: 40px auto;
+	text-align: center;
+`;
+
+const StartButton = styled.div`
+	background: green;
+	color: #fff;
+	cursor: pointer;
+	font-size: 24px;
+	margin: 10px auto;
+	padding: 10px 20px;
+	text-align: center;
+	width: 150px;
+`;
 
 const Timer = () => {
 	const [playSound, setPlaySound] = useState(null);
-	const { timeRemaining, roundTime, isInProgress, roundEndWarning, currentRound, isInRest, start } = useContext(
-		TimerContext
-	);
+	const {
+		timeRemaining,
+		roundTime,
+		isInProgress,
+		roundEndWarning,
+		currentRound,
+		rounds,
+		isInRest,
+		start,
+	} = useContext(TimerContext);
 
 	useEffect(() => {
 		if (timeRemaining === roundTime - 1 && isInProgress === true) {
@@ -30,13 +55,10 @@ const Timer = () => {
 
 	return (
 		<div>
-			<button onClick={() => start()}>start</button>
-			<div>round: {currentRound}</div>
-			<div>time remaining: {moment.utc(timeRemaining * 1000).format('m:ss')}</div>
 			<TimeRemaining />
 			<SoundDispenser sound={playSound} />
-			<div>is in progress: {isInProgress.toString()}</div>
-			<div>is in rest: {isInRest.toString()}</div>
+			<Round>{currentRound === 0 ? 'Preparation' : `${currentRound} / ${rounds}`}</Round>
+			<StartButton onClick={() => start()}>start</StartButton>
 		</div>
 	);
 };

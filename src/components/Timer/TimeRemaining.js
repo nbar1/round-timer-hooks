@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
 
-import { TimerContext } from '../TimerContext';
+import { TimerContext } from '../../TimerContext';
 
 const TimeRemainingWrapper = styled.div`
 	background: #000;
@@ -11,7 +11,7 @@ const TimeRemainingWrapper = styled.div`
 	font-size: 72px;
 	height: 400px;
 	line-height: 400px;
-	margin: 0 auto;
+	margin: 40px auto 0;
 	text-align: center;
 	width: 400px;
 
