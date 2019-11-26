@@ -5,7 +5,7 @@ export const TimerContext = React.createContext({});
 
 export const Provider = ({ children }) => {
 	const [rounds, setRounds] = useState(12);
-	const [currentRound, setCurrentRound] = useState(1);
+	const [currentRound, setCurrentRound] = useState(0);
 	const [roundTime, setRoundTime] = useState(180); // in seconds
 	const [timeRemaining, setTimeRemaining] = useState(180); // in seconds
 	const [restTime, setRestTime] = useState(60); // in seconds
@@ -52,8 +52,9 @@ export const Provider = ({ children }) => {
 	 * @returns {void}
 	 */
 	const start = () => {
-		setTimeRemaining(timeRemaining => timeRemaining - 1);
+		setTimeRemaining(restTime - 1);
 		setIsInProgress(true);
+		setIsInRest(true);
 	};
 
 	/**
