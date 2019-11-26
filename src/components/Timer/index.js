@@ -24,6 +24,11 @@ const StartButton = styled.div`
 	width: 150px;
 `;
 
+const Rounds = styled.div`
+	margin: 20px auto;
+	text-align: center;
+`;
+
 const Timer = () => {
 	const [playSound, setPlaySound] = useState(null);
 	const {
@@ -33,6 +38,7 @@ const Timer = () => {
 		roundEndWarning,
 		currentRound,
 		rounds,
+		setRounds,
 		isInRest,
 		start,
 	} = useContext(TimerContext);
@@ -59,6 +65,9 @@ const Timer = () => {
 			<SoundDispenser sound={playSound} />
 			<Round>{currentRound === 0 ? 'Preparation' : `${currentRound} / ${rounds}`}</Round>
 			<StartButton onClick={() => start()}>start</StartButton>
+			<Rounds>
+				Rounds: <input value={rounds} onChange={e => setRounds(e.target.value)} />
+			</Rounds>
 		</div>
 	);
 };

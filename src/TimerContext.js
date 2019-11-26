@@ -52,23 +52,10 @@ export const Provider = ({ children }) => {
 	 * @returns {void}
 	 */
 	const start = () => {
+		setCurrentRound(0);
 		setTimeRemaining(restTime - 1);
 		setIsInProgress(true);
 		setIsInRest(true);
-	};
-
-	/**
-	 * reset
-	 *
-	 * @returns {void}
-	 */
-	const reset = () => {
-		setRounds(12);
-		setCurrentRound(1);
-		setRoundTime(180);
-		setRestTime(60);
-		setRoundEndWarning(10);
-		setIsInProgress(false);
 	};
 
 	// exports
@@ -86,7 +73,6 @@ export const Provider = ({ children }) => {
 		isInRest,
 		timeRemaining,
 		start,
-		reset,
 	};
 
 	return <TimerContext.Provider value={timerContext}>{children}</TimerContext.Provider>;
