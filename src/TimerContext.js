@@ -9,7 +9,6 @@ export const Provider = ({ children }) => {
 	const [roundTime, setRoundTime] = useState(180); // in seconds
 	const [timeRemaining, setTimeRemaining] = useState(180); // in seconds
 	const [restTime, setRestTime] = useState(60); // in seconds
-	const [prepTime, setPrepTime] = useState(60); // in seconds
 	const [roundEndWarning, setRoundEndWarning] = useState(10); // in seconds
 	const [isInProgress, setIsInProgress] = useState(false);
 	const [isInRest, setIsInRest] = useState(false);
@@ -20,11 +19,7 @@ export const Provider = ({ children }) => {
 		const tick = () => {
 			if (timeRemaining !== 0) {
 				// tick clock
-				setTimeRemaining(time => time - 1);
-
-				if (timeRemaining === roundEndWarning && isInRest === false) {
-					console.log('round end warning');
-				}
+				setTimeRemaining(timeRemaining - 1);
 
 				return;
 			}
@@ -37,12 +32,12 @@ export const Provider = ({ children }) => {
 				}
 
 				setIsInRest(true);
-				setTimeRemaining(restTime);
+				setTimeRemaining(restTime - 1);
 			} else {
 				// start next round
 				setIsInRest(false);
 				setCurrentRound(round => round + 1);
-				setTimeRemaining(roundTime);
+				setTimeRemaining(roundTime - 1);
 			}
 		};
 
@@ -57,6 +52,7 @@ export const Provider = ({ children }) => {
 	 * @returns {void}
 	 */
 	const start = () => {
+		setTimeRemaining(timeRemaining => timeRemaining - 1);
 		setIsInProgress(true);
 	};
 
@@ -70,7 +66,6 @@ export const Provider = ({ children }) => {
 		setCurrentRound(1);
 		setRoundTime(180);
 		setRestTime(60);
-		setPrepTime(60);
 		setRoundEndWarning(10);
 		setIsInProgress(false);
 	};
@@ -84,8 +79,6 @@ export const Provider = ({ children }) => {
 		setRoundTime,
 		restTime,
 		setRestTime,
-		prepTime,
-		setPrepTime,
 		roundEndWarning,
 		setRoundEndWarning,
 		isInProgress,
