@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
 
 import { TimerContext } from '../../TimerContext';
 
@@ -33,7 +32,6 @@ const Timer = () => {
 	const [playSound, setPlaySound] = useState(null);
 	const {
 		timeRemaining,
-		roundTime,
 		isInProgress,
 		roundEndWarning,
 		currentRound,
@@ -44,12 +42,12 @@ const Timer = () => {
 	} = useContext(TimerContext);
 
 	useEffect(() => {
-		if (timeRemaining === roundTime - 1 && isInProgress === true) {
+		if (timeRemaining === 0 && isInRest === true) {
 			// play round start
 			setPlaySound('bell');
 		} else if (timeRemaining === roundEndWarning && isInProgress === true && isInRest === false) {
-			// play slap sticks
-			setPlaySound('stick');
+			// play round end warning
+			setPlaySound('rest-end');
 		} else if (timeRemaining === 0 && isInProgress === true && isInRest === false) {
 			// play round end
 			setPlaySound('bell');
