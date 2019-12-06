@@ -59,6 +59,18 @@ export const Provider = ({ children }) => {
 		setIsInRest(true);
 	};
 
+	/**
+	 * reset
+	 *
+	 * @returns {void}
+	 */
+	const reset = () => {
+		setCurrentRound(0);
+		setTimeRemaining(roundTime);
+		setIsInProgress(false);
+		setIsInRest(false);
+	};
+
 	// exports
 	const timerContext = {
 		rounds,
@@ -74,6 +86,7 @@ export const Provider = ({ children }) => {
 		isInRest,
 		timeRemaining,
 		start,
+		reset,
 	};
 
 	return <TimerContext.Provider value={timerContext}>{children}</TimerContext.Provider>;

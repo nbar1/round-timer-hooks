@@ -48,6 +48,7 @@ const Timer = () => {
 		setRounds,
 		isInRest,
 		start,
+		reset,
 	} = useContext(TimerContext);
 
 	useEffect(() => {
@@ -71,7 +72,7 @@ const Timer = () => {
 			<TimeRemaining />
 			<SoundDispenser sound={playSound} />
 			<Round>{currentRound === 0 ? 'Preparation' : `${currentRound} / ${rounds}`}</Round>
-			<StartButton onClick={() => start()} isInProgress={isInProgress}>
+			<StartButton onClick={() => (isInProgress ? reset() : start())} isInProgress={isInProgress}>
 				{isInProgress ? 'reset' : 'start'}
 			</StartButton>
 			<Rounds>
