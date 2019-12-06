@@ -28,6 +28,7 @@ export const Provider = ({ children }) => {
 				// set to rest mode
 				if (currentRound === parseInt(rounds)) {
 					setIsInProgress(false);
+					setCurrentRound(0);
 					return;
 				}
 

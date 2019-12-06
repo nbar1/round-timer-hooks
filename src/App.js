@@ -11,6 +11,8 @@ const AppWrapper = styled.div`
 const GlobalStyle = createGlobalStyle`
 	html,
 	body {
+		background: #505050;
+		color: #fff;
 		font-family: Arial, Helvetica, sans-serif;
 		margin: 0;
 		min-height: 100%;

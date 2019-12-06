@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { TimerContext } from '../../TimerContext';
 
 import TimeRemaining from './TimeRemaining';
 import SoundDispenser from '../SoundDispenser';
+import Input from './Input';
 
 const Round = styled.div`
 	font-size: 36px;
-	margin: 40px auto;
+	margin: 45px auto 40px;
 	text-align: center;
 `;
 
 const StartButton = styled.div`
-	background: green;
+	background: #319031;
+	border-radius: 6px;
 	color: #fff;
 	cursor: pointer;
 	font-size: 24px;
@@ -21,6 +23,13 @@ const StartButton = styled.div`
 	padding: 10px 20px;
 	text-align: center;
 	width: 150px;
+
+	${props =>
+		props.isInProgress &&
+		css`
+			background: #b57602;
+			color: #222;
+		`}
 `;
 
 const Rounds = styled.div`
@@ -62,9 +71,11 @@ const Timer = () => {
 			<TimeRemaining />
 			<SoundDispenser sound={playSound} />
 			<Round>{currentRound === 0 ? 'Preparation' : `${currentRound} / ${rounds}`}</Round>
-			<StartButton onClick={() => start()}>start</StartButton>
+			<StartButton onClick={() => start()} isInProgress={isInProgress}>
+				{isInProgress ? 'reset' : 'start'}
+			</StartButton>
 			<Rounds>
-				Rounds: <input value={rounds} onChange={e => setRounds(e.target.value)} />
+				<Input label={'Rounds'} value={rounds} onChange={target => setRounds(target.value)} />
 			</Rounds>
 		</div>
 	);

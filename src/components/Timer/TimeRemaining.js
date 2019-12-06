@@ -7,6 +7,7 @@ import { TimerContext } from '../../TimerContext';
 const TimeRemainingWrapper = styled.div`
 	background: #000;
 	border-radius: 200px;
+	box-shadow: 0 0 50px #9e9e9e;
 	color: #fff;
 	font-size: 72px;
 	height: 400px;
@@ -25,6 +26,7 @@ const TimeRemainingWrapper = styled.div`
 		props.isInRest === true &&
 		css`
 			background: #ffa500;
+			color: #000;
 		`}
 `;
 
