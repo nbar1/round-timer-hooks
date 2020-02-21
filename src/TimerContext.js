@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const TimerContext = React.createContext({});
 
 export const Provider = ({ children }) => {
-	const [rounds, setRounds] = useState(12);
+	const [rounds, setRounds] = useState(8);
 	const [currentRound, setCurrentRound] = useState(0);
 	const [roundTime, setRoundTime] = useState(180); // in seconds
 	const [timeRemaining, setTimeRemaining] = useState(180); // in seconds
