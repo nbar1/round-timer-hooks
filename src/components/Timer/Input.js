@@ -71,7 +71,7 @@ const Input = ({ label, value = '', onChange, width = '225px' }) => {
 
 Input.propTypes = {
 	label: PropTypes.string.isRequired,
-	value: PropTypes.oneOfType(['string', 'number']),
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	onChange: PropTypes.func.isRequired,
 	width: PropTypes.string,
 };
